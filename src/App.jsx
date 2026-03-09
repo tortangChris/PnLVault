@@ -1886,7 +1886,7 @@ export default function PNLCalendar() {
                           className={`border-r border-b relative transition-all duration-150 select-none
                             ${d ? "border-slate-800/60" : "border-slate-200"}
                             ${day ? "cursor-pointer active:opacity-75" : "opacity-0 pointer-events-none"}
-                            ${isMobile ? "min-h-[52px]" : "min-h-[88px] sm:min-h-[96px]"}
+                            ${isMobile ? "min-h-[58px]" : "min-h-[88px] sm:min-h-[96px]"}
                             ${isExp ? (d ? "ring-2 ring-inset ring-emerald-500/50 bg-slate-800/70" : "ring-2 ring-inset ring-emerald-400/50 bg-emerald-50/60") : ""}
                             ${!isExp && hasTrades && !isMobile ? (d ? "hover:bg-slate-800/40" : "hover:bg-slate-50") : ""}
                             ${!isExp && isMobile ? (d ? "hover:bg-slate-800/30" : "hover:bg-slate-50/80") : ""}
@@ -1928,15 +1928,18 @@ export default function PNLCalendar() {
                                 </div>
                               )}
                               {isMobile && hasTrades && (
-                                <p
-                                  className={`leading-none mt-0.5`}
+                                <div
+                                  className={`mt-0.5 self-start flex items-center gap-0.5 px-1 py-0.5 rounded border ${d ? "bg-slate-800 border-slate-500 text-slate-200" : "bg-white border-slate-400 text-slate-700"}`}
                                   style={{
                                     fontSize: "9px",
-                                    color: d ? "#64748b" : "#94a3b8",
+                                    fontWeight: 800,
+                                    lineHeight: 1,
+                                    letterSpacing: "0.02em",
                                   }}
                                 >
-                                  {dayData.trades.length}T
-                                </p>
+                                  {dayData.trades.length}
+                                  <span style={{ opacity: 0.7 }}>T</span>
+                                </div>
                               )}
 
                               {/* Desktop: PnL chip + dots */}

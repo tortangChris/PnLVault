@@ -73,17 +73,31 @@ const MSHORT = [
 const DAYS = ["S", "M", "T", "W", "T", "F", "S"];
 const DAYSFULL = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-const fmt = (n) => {
-  const a = Math.abs(n);
-  const s =
-    a >= 10000
-      ? `$${(a / 1000).toFixed(0)}k`
-      : a >= 1000
-        ? `$${(a / 1000).toFixed(1)}k`
-        : `$${a}`;
-  return (n >= 0 ? "+" : "−") + s;
+const roundPnl = (n) => {
+  const r = Math.round(n * 100) / 100;
+  return r;
 };
-const fmtFull = (n) => `${n >= 0 ? "+" : "−"}$${Math.abs(n).toLocaleString()}`;
+const fmt = (n) => {
+  const v = roundPnl(n);
+  const a = Math.abs(v);
+  let s;
+  if (a >= 10000) s = `$${(a / 1000).toFixed(0)}k`;
+  else if (a >= 1000) s = `$${(a / 1000).toFixed(1)}k`;
+  else s = `$${a % 1 === 0 ? a.toFixed(0) : a.toFixed(2)}`;
+  return (v >= 0 ? "+" : "−") + s;
+};
+const fmtFull = (n) => {
+  const v = roundPnl(n);
+  const a = Math.abs(v);
+  const formatted =
+    a % 1 === 0
+      ? a.toLocaleString(undefined, { maximumFractionDigits: 0 })
+      : a.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+  return `${v >= 0 ? "+" : "−"}$${formatted}`;
+};
 const pnlText = (p, d) =>
   p > 0
     ? d

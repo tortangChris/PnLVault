@@ -1914,18 +1914,29 @@ export default function PNLCalendar() {
                                 )}
                               </div>
 
-                              {/* Mobile: just PnL chip, no dots, no overflow */}
+                              {/* Mobile: PnL chip + trade count */}
                               {isMobile && hasTrades && (
                                 <div
                                   className={`rounded border px-1 py-0.5 mt-0.5 ${pnlBg(dayPnl, dark)}`}
                                 >
                                   <p
-                                    className={`text-xs font-black leading-none truncate ${pnlText(dayPnl, dark)}`}
+                                    className={`font-black leading-none truncate ${pnlText(dayPnl, dark)}`}
                                     style={{ fontSize: "10px" }}
                                   >
                                     {fmt(dayPnl)}
                                   </p>
                                 </div>
+                              )}
+                              {isMobile && hasTrades && (
+                                <p
+                                  className={`leading-none mt-0.5`}
+                                  style={{
+                                    fontSize: "9px",
+                                    color: d ? "#64748b" : "#94a3b8",
+                                  }}
+                                >
+                                  {dayData.trades.length}T
+                                </p>
                               )}
 
                               {/* Desktop: PnL chip + dots */}
